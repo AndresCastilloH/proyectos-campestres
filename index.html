@@ -361,14 +361,25 @@
   const HOUSE_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9"/><path d="M10 20v-6h4v6"/></svg>';
   const TENT_SVG  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 20l7-14 2 4-5 10z"/><path d="M21 20l-7-14-2 4 5 10z"/><path d="M3 20h18"/></svg>';
 
-  const CONSTRUCTION_ITEMS = [
+  const ENCINAS_ITEMS = [
     {t:'Gestión de tarifa especial de peaje', d:'Solicitar el beneficio de residente o propietario en la concesión vial correspondiente.'},
     {t:'Diseño arquitectónico y estructural aprobado', d:'Planos finales revisados y firmados por diseño y estructura.'},
     {t:'Movimiento de tierra y excavación', d:'Adecuación del terreno para la cimentación.'},
     {t:'Replanteo y marcación de ejes', d:'Trazado y verificación de ejes, niveles y puntos de referencia para la cimentación.'},
-    {t:'Cimentación', d:'Zapatas, vigas de amarre y placa de contrapiso.'},
-    {t:'Anclajes', d:'Fijación de anclajes para el montaje de la estructura metálica sobre la cimentación.'},
-    {t:'Estructura metálica', d:'Montaje de columnas y vigas metálicas.'},
+    {t:'Zapatas', d:'Excavación y fundida de zapatas de cimentación.'},
+    {t:'Vigas de Amarre', d:'Fundida de vigas de amarre entre zapatas.'},
+    {t:'Placa de Contrapiso', d:'Fundida y curado de la placa de contrapiso.'},
+    {t:'Compra Anclajes', d:'Adquirir los anclajes para el montaje de la estructura metálica sobre la cimentación.'},
+    {t:'Instalación Anclajes', d:'Fijación e instalación de los anclajes sobre la cimentación.'},
+    {t:'Cotización Columnas Metálicas', d:'Solicitar y comparar cotizaciones de columnas metálicas según diseño estructural.'},
+    {t:'Compra Columnas Metálicas', d:'Adquirir las columnas metálicas según la cotización aprobada.'},
+    {t:'Instalación Columnas Metálicas', d:'Montaje de columnas metálicas.'},
+    {t:'Cotización Vigas Metálicas', d:'Solicitar y comparar cotizaciones de vigas metálicas según diseño estructural.'},
+    {t:'Compra Vigas Metálicas', d:'Adquirir las vigas metálicas según la cotización aprobada.'},
+    {t:'Instalación Vigas Metálicas', d:'Montaje de vigas metálicas.'},
+    {t:'Cotización Perfiles PHR', d:'Solicitar y comparar cotizaciones de perfiles PHR según diseño estructural.'},
+    {t:'Compra Perfiles PHR', d:'Adquirir los perfiles PHR según la cotización aprobada.'},
+    {t:'Instalación Perfiles PHR', d:'Montaje de perfiles PHR.'},
     {t:'Placa de entrepiso', d:'Fundida y curada según especificación.'},
     {t:'Mampostería y muros', d:'Levante de muros divisorios y de fachada.'},
     {t:'Cotización de cubierta', d:'Solicitar y comparar cotizaciones del material de cubierta y sus accesorios.'},
@@ -377,8 +388,10 @@
     {t:'Cotización de ventanales', d:'Solicitar y comparar cotizaciones de ventanería según diseño.'},
     {t:'Compra de ventanales', d:'Adquirir la ventanería según la cotización aprobada.'},
     {t:'Instalación de ventanales', d:'Montaje de ventanas y puertas de vidrio.'},
+    {t:'Gestión de Servicios Públicos: Suministro y Contadores', d:'Trámite de acometidas, suministro y contadores ante las empresas de servicios públicos.'},
     {t:'Instalaciones eléctricas', d:'Redes, tablero y puntos según diseño eléctrico.'},
     {t:'Instalaciones hidrosanitarias', d:'Redes de agua potable, aguas negras y aguas lluvias.'},
+    {t:'Pozo séptico', d:'Construcción e instalación del sistema de pozo séptico para aguas residuales.'},
     {t:'Pañete y acabados en muros', d:'Repello, estuco y preparación para pintura.'},
     {t:'Cotización de pisos', d:'Solicitar y comparar cotizaciones de pisos y enchapes de baños y cocina.'},
     {t:'Compra de pisos', d:'Adquirir pisos y enchapes de baños y cocina según la cotización aprobada.'},
@@ -388,6 +401,12 @@
     {t:'Instalación de carpintería', d:'Instalación de puertas, closets y muebles fijos.'},
     {t:'Pintura general', d:'Interior y exterior, incluyendo fachada.'},
     {t:'Cocina y baños — acabados finales', d:'Grifería, mesones, sanitarios y detalles.'},
+    {t:'Cotización de Pórtico', d:'Solicitar y comparar cotizaciones para el pórtico de acceso.'},
+    {t:'Compra de Pórtico', d:'Adquirir el pórtico de acceso según la cotización aprobada.'},
+    {t:'Instalación de Pórtico', d:'Montaje e instalación del pórtico de acceso.'},
+    {t:'Cerramiento definitivo', d:'Construcción del cerramiento definitivo perimetral de la propiedad.'},
+    {t:'Acceso vehicular', d:'Construcción del acceso vehicular (vía interna, rampa o parqueadero).'},
+    {t:'Alumbrado Exterior', d:'Instalación de iluminación exterior de fachada y zonas exteriores.'},
     {t:'Limpieza final y entrega', d:'Aseo general, remates y entrega a satisfacción.'}
   ];
 
@@ -410,11 +429,58 @@
   const FINAL_ITEM = {t:'Inspección final y plan de mantenimiento', d:'Verificar que todas las actividades quedaron ejecutadas y definir el mantenimiento periódico (corte de césped, riego, limpieza, etc.).'};
 
   const RIVIERA_ITEMS = [
-    CONSTRUCTION_ITEMS[0],
+    {t:'Gestión de tarifa especial de peaje', d:'Solicitar el beneficio de residente o propietario en la concesión vial correspondiente.'},
     {t:'Requisitos y especificaciones del condominio', d:'Averiguar los requisitos y especificaciones para construir dentro del proyecto.'},
-    CONSTRUCTION_ITEMS[1],
+    {t:'Estudios preliminares y/o de suelos', d:'Estudio de suelos y estudios preliminares para el diseño estructural y de cimentación.'},
+    {t:'Diseño arquitectónico y estructural aprobado', d:'Planos finales revisados y firmados por diseño y estructura.'},
     {t:'Aprobación de administración para iniciar obra', d:'Obtener el visto bueno de los administradores del condominio para dar inicio a la obra.'},
-    ...CONSTRUCTION_ITEMS.slice(2)
+    {t:'Limpieza y adecuación del terreno', d:'Desmonte, descapote, retiro de material y nivelación inicial.'},
+    {t:'Cerramiento provisional de Obra', d:'Instalación de cerramiento provisional para la seguridad de la obra.'},
+    {t:'Instalaciones Provisionales', d:'Bodega, acometida de agua y energía para la obra.'},
+    {t:'Movimiento de tierra y excavación', d:'Adecuación del terreno para la cimentación.'},
+    {t:'Replanteo y marcación de ejes', d:'Trazado y verificación de ejes, niveles y puntos de referencia para la cimentación.'},
+    {t:'Zapatas', d:'Excavación y fundida de zapatas de cimentación.'},
+    {t:'Vigas de Amarre', d:'Fundida de vigas de amarre entre zapatas.'},
+    {t:'Placa de Contrapiso', d:'Fundida y curado de la placa de contrapiso.'},
+    {t:'Compra Anclajes', d:'Adquirir los anclajes para el montaje de la estructura metálica sobre la cimentación.'},
+    {t:'Instalación Anclajes', d:'Fijación e instalación de los anclajes sobre la cimentación.'},
+    {t:'Cotización Columnas Metálicas', d:'Solicitar y comparar cotizaciones de columnas metálicas según diseño estructural.'},
+    {t:'Compra Columnas Metálicas', d:'Adquirir las columnas metálicas según la cotización aprobada.'},
+    {t:'Instalación Columnas Metálicas', d:'Montaje de columnas metálicas.'},
+    {t:'Cotización Vigas Metálicas', d:'Solicitar y comparar cotizaciones de vigas metálicas según diseño estructural.'},
+    {t:'Compra Vigas Metálicas', d:'Adquirir las vigas metálicas según la cotización aprobada.'},
+    {t:'Instalación Vigas Metálicas', d:'Montaje de vigas metálicas.'},
+    {t:'Cotización Perfiles PHR', d:'Solicitar y comparar cotizaciones de perfiles PHR según diseño estructural.'},
+    {t:'Compra Perfiles PHR', d:'Adquirir los perfiles PHR según la cotización aprobada.'},
+    {t:'Instalación Perfiles PHR', d:'Montaje de perfiles PHR.'},
+    {t:'Placa de entrepiso', d:'Fundida y curada según especificación.'},
+    {t:'Mampostería y muros', d:'Levante de muros divisorios y de fachada.'},
+    {t:'Cotización de cubierta', d:'Solicitar y comparar cotizaciones del material de cubierta y sus accesorios.'},
+    {t:'Compra de cubierta', d:'Adquirir el material de cubierta y sus accesorios según la cotización aprobada.'},
+    {t:'Instalación de cubierta', d:'Montaje de estructura de cubierta, impermeabilización y teja.'},
+    {t:'Cotización de ventanales', d:'Solicitar y comparar cotizaciones de ventanería según diseño.'},
+    {t:'Compra de ventanales', d:'Adquirir la ventanería según la cotización aprobada.'},
+    {t:'Instalación de ventanales', d:'Montaje de ventanas y puertas de vidrio.'},
+    {t:'Gestión de Servicios Públicos: Suministro y Contadores', d:'Trámite de acometidas, suministro y contadores ante las empresas de servicios públicos.'},
+    {t:'Instalaciones eléctricas', d:'Redes, tablero y puntos según diseño eléctrico.'},
+    {t:'Instalaciones hidrosanitarias', d:'Redes de agua potable, aguas negras y aguas lluvias.'},
+    {t:'Pozo séptico', d:'Construcción e instalación del sistema de pozo séptico para aguas residuales.'},
+    {t:'Pañete y acabados en muros', d:'Repello, estuco y preparación para pintura.'},
+    {t:'Cotización de pisos', d:'Solicitar y comparar cotizaciones de pisos y enchapes de baños y cocina.'},
+    {t:'Compra de pisos', d:'Adquirir pisos y enchapes de baños y cocina según la cotización aprobada.'},
+    {t:'Instalación de pisos y enchapes', d:'Instalación de pisos y enchapes de baños y cocina.'},
+    {t:'Cotización de carpintería', d:'Solicitar y comparar cotizaciones de puertas, closets y muebles fijos.'},
+    {t:'Compra de carpintería', d:'Adquirir puertas, closets y muebles fijos según la cotización aprobada.'},
+    {t:'Instalación de carpintería', d:'Instalación de puertas, closets y muebles fijos.'},
+    {t:'Pintura general', d:'Interior y exterior, incluyendo fachada.'},
+    {t:'Cocina y baños — acabados finales', d:'Grifería, mesones, sanitarios y detalles.'},
+    {t:'Cotización de Pórtico', d:'Solicitar y comparar cotizaciones para el pórtico de acceso.'},
+    {t:'Compra de Pórtico', d:'Adquirir el pórtico de acceso según la cotización aprobada.'},
+    {t:'Instalación de Pórtico', d:'Montaje e instalación del pórtico de acceso.'},
+    {t:'Cerramiento definitivo', d:'Construcción del cerramiento definitivo perimetral de la propiedad.'},
+    {t:'Acceso vehicular', d:'Construcción del acceso vehicular (vía interna, rampa o parqueadero).'},
+    {t:'Alumbrado Exterior', d:'Instalación de iluminación exterior de fachada y zonas exteriores.'},
+    {t:'Limpieza final y entrega', d:'Aseo general, remates y entrega a satisfacción.'}
   ];
 
   const PROJECTS = [
@@ -422,19 +488,19 @@
       id:'encinas', name:'Las Encinas', location:'Santo Tomás',
       type:'construccion', typeLabel:'Construcción de vivienda · Casa Cubo',
       facts:[
-        {label:'Área construida', value:'≈ 240 m²'},
-        {label:'Sistema estructural', value:'Columnas metálicas'},
-        {label:'Estado', value:'Proyecto en obra'}
+        {label:'Área construida · Sistema estructural', value:'≈ 240 m² · Columnas metálicas'},
+        {label:'Estado', value:'Ejecutando Obra Negra'},
+        {label:'Objetivo', value:'Habitable al 10/DIC/2026 (avance esperado: 4% semanal)'}
       ],
-      items: CONSTRUCTION_ITEMS
+      items: ENCINAS_ITEMS
     },
     {
       id:'riviera', name:'Altos de la Riviera', location:'Bajo Ostión - Puerto Colombia',
       type:'construccion', typeLabel:'Construcción de vivienda · Casa Cubo',
       facts:[
-        {label:'Área construida', value:'≈ 240 m²'},
-        {label:'Sistema estructural', value:'Columnas metálicas'},
-        {label:'Estado', value:'Proyecto en obra'}
+        {label:'Área construida · Sistema estructural', value:'≈ 240 m² · Columnas metálicas'},
+        {label:'Estado', value:'Averiguando la mera tenencia del lote'},
+        {label:'Objetivo', value:'Terminar etapa de cimentación al 10/DIC/2026 (avance esperado: 5% semanal)'}
       ],
       items: RIVIERA_ITEMS
     },
@@ -443,7 +509,7 @@
       type:'lote', typeLabel:'Adecuación lote para camping',
       facts:[
         {label:'Uso proyectado', value:'Camping'},
-        {label:'Objetivo', value:'Lote acondicionado y listo para acampar'}
+        {label:'Objetivo', value:'Lote acondicionado y listo para acampar · Plan: terminar el 13/NOV/2026 (avance esperado: 5% semanal)'}
       ],
       items: LOTE_BASE_ITEMS.concat([FINAL_ITEM])
     },
@@ -452,9 +518,14 @@
       type:'lote', typeLabel:'Adecuación lote para camping',
       facts:[
         {label:'Uso proyectado', value:'Camping'},
-        {label:'Objetivo', value:'Lote acondicionado y listo para acampar'}
+        {label:'Objetivo', value:'Lote acondicionado y listo para acampar · Plan: terminar el 13/NOV/2026 (avance esperado: 5% semanal)'}
       ],
-      items: [TOLL_ITEM].concat(LOTE_BASE_ITEMS, [FINAL_ITEM])
+      items: [
+        {t:'Entrega formal del lote', d:'Acta o documento de entrega formal del lote por parte del propietario o urbanizador.'},
+        {t:'Conocer requisitos para inicio de obra', d:'Averiguar los requisitos y trámites necesarios para iniciar la adecuación del lote.'},
+        {t:'Tener requisitos para inicio de obra', d:'Reunir y tener listos los requisitos y trámites necesarios para iniciar la adecuación del lote.'},
+        TOLL_ITEM
+      ].concat(LOTE_BASE_ITEMS, [FINAL_ITEM])
     }
   ];
 
