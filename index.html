@@ -369,6 +369,7 @@
     {t:'Zapatas', d:'Excavación y fundida de zapatas de cimentación.'},
     {t:'Vigas de Amarre', d:'Fundida de vigas de amarre entre zapatas.'},
     {t:'Placa de Contrapiso', d:'Fundida y curado de la placa de contrapiso.'},
+    {t:'Cotización Anclajes', d:'Solicitar y comparar cotizaciones de anclajes para el montaje de la estructura metálica sobre la cimentación.'},
     {t:'Compra Anclajes', d:'Adquirir los anclajes para el montaje de la estructura metálica sobre la cimentación.'},
     {t:'Instalación Anclajes', d:'Fijación e instalación de los anclajes sobre la cimentación.'},
     {t:'Cotización Columnas Metálicas', d:'Solicitar y comparar cotizaciones de columnas metálicas según diseño estructural.'},
@@ -390,6 +391,8 @@
     {t:'Instalación de ventanales', d:'Montaje de ventanas y puertas de vidrio.'},
     {t:'Gestión de Servicios Públicos: Suministro y Contadores', d:'Trámite de acometidas, suministro y contadores ante las empresas de servicios públicos.'},
     {t:'Instalaciones eléctricas', d:'Redes, tablero y puntos según diseño eléctrico.'},
+    {t:'Cotización de material de redes hidrosanitarias', d:'Solicitar y comparar cotizaciones de materiales para redes de agua potable, aguas negras y aguas lluvias.'},
+    {t:'Compra de material de redes hidrosanitarias', d:'Adquirir los materiales para redes hidrosanitarias según la cotización aprobada.'},
     {t:'Instalaciones hidrosanitarias', d:'Redes de agua potable, aguas negras y aguas lluvias.'},
     {t:'Pozo séptico', d:'Construcción e instalación del sistema de pozo séptico para aguas residuales.'},
     {t:'Pañete y acabados en muros', d:'Repello, estuco y preparación para pintura.'},
@@ -442,6 +445,7 @@
     {t:'Zapatas', d:'Excavación y fundida de zapatas de cimentación.'},
     {t:'Vigas de Amarre', d:'Fundida de vigas de amarre entre zapatas.'},
     {t:'Placa de Contrapiso', d:'Fundida y curado de la placa de contrapiso.'},
+    {t:'Cotización Anclajes', d:'Solicitar y comparar cotizaciones de anclajes para el montaje de la estructura metálica sobre la cimentación.'},
     {t:'Compra Anclajes', d:'Adquirir los anclajes para el montaje de la estructura metálica sobre la cimentación.'},
     {t:'Instalación Anclajes', d:'Fijación e instalación de los anclajes sobre la cimentación.'},
     {t:'Cotización Columnas Metálicas', d:'Solicitar y comparar cotizaciones de columnas metálicas según diseño estructural.'},
@@ -463,6 +467,8 @@
     {t:'Instalación de ventanales', d:'Montaje de ventanas y puertas de vidrio.'},
     {t:'Gestión de Servicios Públicos: Suministro y Contadores', d:'Trámite de acometidas, suministro y contadores ante las empresas de servicios públicos.'},
     {t:'Instalaciones eléctricas', d:'Redes, tablero y puntos según diseño eléctrico.'},
+    {t:'Cotización de material de redes hidrosanitarias', d:'Solicitar y comparar cotizaciones de materiales para redes de agua potable, aguas negras y aguas lluvias.'},
+    {t:'Compra de material de redes hidrosanitarias', d:'Adquirir los materiales para redes hidrosanitarias según la cotización aprobada.'},
     {t:'Instalaciones hidrosanitarias', d:'Redes de agua potable, aguas negras y aguas lluvias.'},
     {t:'Pozo séptico', d:'Construcción e instalación del sistema de pozo séptico para aguas residuales.'},
     {t:'Pañete y acabados en muros', d:'Repello, estuco y preparación para pintura.'},
@@ -872,14 +878,14 @@
         writeCheck(pid, iid, checkedVal).then(function(){
           row.classList.remove('is-syncing');
           updateProjectUI(pid);
-        }).catch(function(){
+        }).catch(function(err){
           row.classList.remove('is-syncing');
           cb.checked = !checkedVal;
           state[pid].checked[iid] = !checkedVal;
           row.classList.toggle('is-done', !checkedVal);
           row.querySelector('.item-status').textContent = !checkedVal ? 'Hecho' : 'Pendiente';
           updateProjectUI(pid);
-          window.alert('No se pudo guardar el cambio en Google Sheets. Verifica tu conexión y que tengas permiso de edición sobre la hoja.');
+          window.alert('No se pudo guardar el cambio en Google Sheets.\n\nDetalle: ' + (err && err.message ? err.message : err) + '\n\nVerifica tu conexión y que tengas permiso de edición sobre la hoja.');
         });
       });
     });
@@ -893,8 +899,8 @@
         updateProjectUI(pid);
         writeNote(pid, text).then(function(){
           updateProjectUI(pid);
-        }).catch(function(){
-          window.alert('No se pudo guardar la nota en Google Sheets. Verifica tu conexión y que tengas permiso de edición sobre la hoja.');
+        }).catch(function(err){
+          window.alert('No se pudo guardar la nota en Google Sheets.\n\nDetalle: ' + (err && err.message ? err.message : err) + '\n\nVerifica tu conexión y que tengas permiso de edición sobre la hoja.');
         });
       });
     });
@@ -905,8 +911,8 @@
         if(!window.confirm('¿Restablecer todas las actividades de este proyecto a pendiente?')) return;
         projectOf(pid).items.forEach(function(it){ state[pid].checked[it.id] = false; });
         renderAll();
-        resetProjectRemote(pid).catch(function(){
-          window.alert('No se pudo restablecer en Google Sheets. Verifica tu conexión y que tengas permiso de edición sobre la hoja.');
+        resetProjectRemote(pid).catch(function(err){
+          window.alert('No se pudo restablecer en Google Sheets.\n\nDetalle: ' + (err && err.message ? err.message : err) + '\n\nVerifica tu conexión y que tengas permiso de edición sobre la hoja.');
         });
       });
     });
